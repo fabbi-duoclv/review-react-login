@@ -1,6 +1,5 @@
 import { Controller, Get, Post, Body, Param, Put, Delete, ParseIntPipe, Query } from '@nestjs/common';
 import { TodosService } from './todos.service';
-import { Todo } from './entities/todo.entity';
 import { CreateTodoDto } from './dto/create-todo.dto';
 import { UpdateTodoDto } from './dto/update-todo.dto';
 
@@ -9,12 +8,12 @@ export class TodosController {
   constructor(private readonly todosService: TodosService) {}
 
   @Post()
-  create(@Body() createTodoDto: CreateTodoDto): Promise<Todo> {
+  create(@Body() createTodoDto: CreateTodoDto) {
     return this.todosService.create(createTodoDto);
   }
 
   @Get()
-  findAll(@Query('userId') userId?: number): Promise<Todo[]> {
+  findAll(@Query('userId', ParseIntPipe) userId?: number) {
     if (userId) {
       return this.todosService.findByUser(userId);
     }
@@ -22,7 +21,7 @@ export class TodosController {
   }
 
   @Get(':id')
-  findOne(@Param('id', ParseIntPipe) id: number): Promise<Todo> {
+  findOne(@Param('id', ParseIntPipe) id: number) {
     return this.todosService.findOne(id);
   }
 
@@ -30,12 +29,12 @@ export class TodosController {
   update(
     @Param('id', ParseIntPipe) id: number,
     @Body() updateTodoDto: UpdateTodoDto,
-  ): Promise<Todo> {
+  ) {
     return this.todosService.update(id, updateTodoDto);
   }
 
   @Delete(':id')
-  remove(@Param('id', ParseIntPipe) id: number): Promise<void> {
+  remove(@Param('id', ParseIntPipe) id: number) {
     return this.todosService.remove(id);
   }
 } 

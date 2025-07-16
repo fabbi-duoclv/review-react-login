@@ -6,22 +6,64 @@ This is a NestJS backend application providing APIs for user management and todo
 
 - User management (CRUD operations)
 - Todo management (CRUD operations)
-- SQLite database with TypeORM
+- MySQL database with Prisma ORM
+- Docker and Docker Compose support
+
+## Prerequisites
+
+- Node.js (v18+)
+- Docker and Docker Compose
 
 ## Installation
 
 ```bash
+# Install dependencies
 npm install
 ```
 
-## Running the app
+## Running with Docker
 
 ```bash
-# development
+# Start the MySQL database and API containers
+npm run docker:up
+
+# Run the setup script to initialize the database
+./setup.sh
+
+# Stop the containers
+npm run docker:down
+```
+
+## Running locally
+
+```bash
+# Start only the MySQL container
+docker-compose up -d mysql
+
+# Generate Prisma client
+npm run prisma:generate
+
+# Run database migrations
+npm run prisma:migrate
+
+# Start the application in development mode
 npm run start:dev
 
-# production mode
+# Start the application in production mode
 npm run start:prod
+```
+
+## Prisma Commands
+
+```bash
+# Generate Prisma client
+npm run prisma:generate
+
+# Run migrations
+npm run prisma:migrate
+
+# Open Prisma Studio (database GUI)
+npm run prisma:studio
 ```
 
 ## API Endpoints

@@ -17,5 +17,5 @@ export const useCustomToken = () => {
         setToken(token);
     }
 
-    return { token, setToken };
+    return [token, setToken];
 }
