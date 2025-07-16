@@ -1,0 +1,340 @@
+.loginContainer {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  min-height: 100vh;
+  padding: 20px;
+  background-color: #f5f7fa;
+}
+
+.loginCard {
+  width: 100%;
+  max-width: 450px;
+  background-color: white;
+  border-radius: 16px;
+  box-shadow: 0 10px 25px rgba(0, 0, 0, 0.08);
+  padding: 40px;
+  transition: transform 0.2s ease;
+}
+
+.loginHeader {
+  text-align: center;
+  margin-bottom: 32px;
+}
+
+.loginTitle {
+  font-size: 28px;
+  font-weight: 700;
+  color: #333;
+  margin-bottom: 8px;
+}
+
+.loginSubtitle {
+  font-size: 16px;
+  color: #666;
+}
+
+.loginForm {
+  display: flex;
+  flex-direction: column;
+  gap: 20px;
+}
+
+.formGroup {
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+}
+
+.label {
+  font-size: 14px;
+  font-weight: 500;
+  color: #444;
+}
+
+.input {
+  padding: 14px;
+  border: 1px solid #e0e0e0;
+  border-radius: 8px;
+  font-size: 16px;
+  transition: border-color 0.3s, box-shadow 0.3s;
+}
+
+.input:focus {
+  outline: none;
+  border-color: #4f46e5;
+  box-shadow: 0 0 0 2px rgba(79, 70, 229, 0.2);
+}
+
+.passwordHeader {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.forgotPassword {
+  font-size: 14px;
+  color: #4f46e5;
+  text-decoration: none;
+  transition: color 0.2s;
+}
+
+.forgotPassword:hover {
+  color: #4338ca;
+  text-decoration: underline;
+}
+
+.rememberMe {
+  display: flex;
+  align-items: center;
+}
+
+.checkboxContainer {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  cursor: pointer;
+  font-size: 14px;
+  color: #555;
+}
+
+.checkboxContainer input {
+  width: 18px;
+  height: 18px;
+  accent-color: #4f46e5;
+}
+
+.loginButton {
+  background-color: #4f46e5;
+  color: white;
+  border: none;
+  border-radius: 8px;
+  padding: 14px;
+  font-size: 16px;
+  font-weight: 600;
+  cursor: pointer;
+  transition: background-color 0.3s, transform 0.1s;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  height: 50px;
+}
+
+.loginButton:hover {
+  background-color: #4338ca;
+}
+
+.loginButton:active {
+  transform: scale(0.98);
+}
+
+.loginButton:disabled {
+  background-color: #a5a5a5;
+  cursor: not-allowed;
+}
+
+.spinner {
+  display: inline-block;
+  width: 20px;
+  height: 20px;
+  border: 3px solid rgba(255, 255, 255, 0.3);
+  border-radius: 50%;
+  border-top-color: white;
+  animation: spin 1s ease-in-out infinite;
+}
+
+@keyframes spin {
+  to {
+    transform: rotate(360deg);
+  }
+}
+
+.divider {
+  display: flex;
+  align-items: center;
+  text-align: center;
+  margin: 20px 0;
+  color: #888;
+  font-size: 14px;
+}
+
+.divider::before,
+.divider::after {
+  content: '';
+  flex: 1;
+  border-bottom: 1px solid #e0e0e0;
+}
+
+.divider span {
+  padding: 0 10px;
+}
+
+.socialButtons {
+  display: flex;
+  gap: 12px;
+}
+
+.googleButton,
+.facebookButton {
+  flex: 1;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 8px;
+  background-color: white;
+  border: 1px solid #e0e0e0;
+  border-radius: 8px;
+  padding: 12px;
+  font-size: 14px;
+  font-weight: 500;
+  color: #333;
+  transition: background-color 0.2s, border-color 0.2s;
+}
+
+.googleButton:hover,
+.facebookButton:hover {
+  background-color: #f8f9fa;
+  border-color: #d0d0d0;
+}
+
+.googleButton svg,
+.facebookButton svg {
+  width: 18px;
+  height: 18px;
+}
+
+.signupPrompt {
+  margin-top: 24px;
+  text-align: center;
+  font-size: 14px;
+  color: #555;
+}
+
+.signupLink {
+  color: #4f46e5;
+  font-weight: 500;
+  text-decoration: none;
+  transition: color 0.2s;
+}
+
+.signupLink:hover {
+  color: #4338ca;
+  text-decoration: underline;
+}
+
+.errorMessage {
+  background-color: #fee2e2;
+  color: #ef4444;
+  padding: 12px;
+  border-radius: 8px;
+  margin-bottom: 20px;
+  font-size: 14px;
+  display: flex;
+  align-items: center;
+}
+
+.errorMessage::before {
+  content: '⚠️';
+  margin-right: 8px;
+}
+
+/* Dark mode support */
+@media (prefers-color-scheme: dark) {
+  .loginContainer {
+    background-color: #1a1a1a;
+  }
+
+  .loginCard {
+    background-color: #262626;
+    box-shadow: 0 10px 25px rgba(0, 0, 0, 0.2);
+  }
+
+  .loginTitle {
+    color: #f1f1f1;
+  }
+
+  .loginSubtitle {
+    color: #b0b0b0;
+  }
+
+  .label {
+    color: #d1d1d1;
+  }
+
+  .input {
+    background-color: #333;
+    border-color: #444;
+    color: #f1f1f1;
+  }
+
+  .input:focus {
+    border-color: #6366f1;
+    box-shadow: 0 0 0 2px rgba(99, 102, 241, 0.2);
+  }
+
+  .forgotPassword {
+    color: #6366f1;
+  }
+
+  .forgotPassword:hover {
+    color: #818cf8;
+  }
+
+  .checkboxContainer {
+    color: #d1d1d1;
+  }
+
+  .divider {
+    color: #b0b0b0;
+  }
+
+  .divider::before,
+  .divider::after {
+    border-bottom: 1px solid #444;
+  }
+
+  .googleButton,
+  .facebookButton {
+    background-color: #333;
+    border-color: #444;
+    color: #f1f1f1;
+  }
+
+  .googleButton:hover,
+  .facebookButton:hover {
+    background-color: #3a3a3a;
+    border-color: #555;
+  }
+
+  .signupPrompt {
+    color: #b0b0b0;
+  }
+
+  .signupLink {
+    color: #6366f1;
+  }
+
+  .signupLink:hover {
+    color: #818cf8;
+  }
+
+  .errorMessage {
+    background-color: rgba(239, 68, 68, 0.2);
+    color: #f87171;
+  }
+}
+
+/* Responsive styles */
+@media (max-width: 520px) {
+  .loginCard {
+    padding: 24px;
+  }
+
+  .loginTitle {
+    font-size: 24px;
+  }
+
+  .socialButtons {
+    flex-direction: column;
+  }
+} 

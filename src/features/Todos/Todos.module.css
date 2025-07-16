@@ -1,0 +1,226 @@
+.container {
+  max-width: 600px;
+  margin: 0 auto;
+  padding: 20px;
+  font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+}
+
+.title {
+  color: #3f51b5;
+  text-align: center;
+  margin-bottom: 20px;
+  font-size: 2.2rem;
+  font-weight: 600;
+  text-shadow: 1px 1px 3px rgba(0, 0, 0, 0.1);
+}
+
+.card {
+  background-color: white;
+  border-radius: 12px;
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.08);
+  padding: 20px;
+  margin-bottom: 20px;
+  transition: transform 0.2s, box-shadow 0.2s;
+}
+
+.card:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 6px 16px rgba(0, 0, 0, 0.12);
+}
+
+.form {
+  display: flex;
+  margin-bottom: 16px;
+}
+
+.input {
+  flex: 1;
+  padding: 12px;
+  border: 1px solid #e0e0e0;
+  border-radius: 8px;
+  font-size: 16px;
+  margin-right: 8px;
+  transition: border-color 0.3s, box-shadow 0.3s;
+}
+
+.input:focus {
+  outline: none;
+  border-color: #3f51b5;
+  box-shadow: 0 0 0 2px rgba(63, 81, 181, 0.2);
+}
+
+.button {
+  background-color: #3f51b5;
+  color: white;
+  border: none;
+  border-radius: 8px;
+  padding: 12px 18px;
+  font-size: 16px;
+  font-weight: 500;
+  cursor: pointer;
+  transition: background-color 0.3s, transform 0.1s;
+}
+
+.button:hover {
+  background-color: #303f9f;
+}
+
+.button:active {
+  transform: scale(0.98);
+}
+
+.todoList {
+  list-style-type: none;
+  padding: 0;
+  margin: 0;
+}
+
+.todoItem {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 14px 0;
+  border-bottom: 1px solid #f0f0f0;
+  transition: background-color 0.2s;
+}
+
+.todoItem:hover {
+  background-color: #f9f9f9;
+}
+
+.todoItem:last-child {
+  border-bottom: none;
+}
+
+.todoText {
+  font-size: 16px;
+  flex: 1;
+  margin-right: 12px;
+  transition: color 0.2s;
+  word-break: break-word;
+}
+
+.completed {
+  text-decoration: line-through;
+  color: #9e9e9e;
+}
+
+.todoActions {
+  display: flex;
+  gap: 8px;
+}
+
+.checkbox {
+  width: 20px;
+  height: 20px;
+  margin-right: 12px;
+  cursor: pointer;
+  accent-color: #3f51b5;
+}
+
+.deleteButton {
+  background-color: #f44336;
+  color: white;
+  border: none;
+  border-radius: 6px;
+  padding: 8px 12px;
+  cursor: pointer;
+  transition: background-color 0.3s, transform 0.1s;
+}
+
+.deleteButton:hover {
+  background-color: #d32f2f;
+}
+
+.deleteButton:active {
+  transform: scale(0.95);
+}
+
+.editButton {
+  background-color: #ff9800;
+  color: white;
+  border: none;
+  border-radius: 6px;
+  padding: 8px 12px;
+  cursor: pointer;
+  transition: background-color 0.3s, transform 0.1s;
+}
+
+.editButton:hover {
+  background-color: #f57c00;
+}
+
+.editButton:active {
+  transform: scale(0.95);
+}
+
+.filterContainer {
+  display: flex;
+  justify-content: center;
+  margin-bottom: 16px;
+  gap: 8px;
+}
+
+.filterButton {
+  background-color: #e0e0e0;
+  color: #616161;
+  border: none;
+  border-radius: 20px;
+  padding: 8px 16px;
+  font-size: 14px;
+  cursor: pointer;
+  transition: background-color 0.3s, color 0.3s;
+}
+
+.filterButton:hover {
+  background-color: #d5d5d5;
+}
+
+.filterButtonActive {
+  background-color: #3f51b5;
+  color: white;
+}
+
+.emptyState {
+  text-align: center;
+  color: #9e9e9e;
+  font-style: italic;
+  padding: 20px 0;
+}
+
+.editInput {
+  flex: 1;
+  padding: 8px;
+  border: 1px solid #3f51b5;
+  border-radius: 4px;
+  font-size: 16px;
+  margin-right: 8px;
+}
+
+.saveButton {
+  background-color: #4caf50;
+  color: white;
+  border: none;
+  border-radius: 6px;
+  padding: 8px 12px;
+  cursor: pointer;
+  transition: background-color 0.3s;
+}
+
+.saveButton:hover {
+  background-color: #43a047;
+}
+
+.cancelButton {
+  background-color: #9e9e9e;
+  color: white;
+  border: none;
+  border-radius: 6px;
+  padding: 8px 12px;
+  cursor: pointer;
+  transition: background-color 0.3s;
+}
+
+.cancelButton:hover {
+  background-color: #757575;
+} 
