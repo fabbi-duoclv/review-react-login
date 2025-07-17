@@ -14,30 +14,28 @@ services:
       - '3306:3306'
     volumes:
       - mysql_data:/var/lib/mysql
-    networks:
-      - todo_network
 
-  api:
-    build:
-      context: .
-      dockerfile: Dockerfile
-    container_name: todo-api
-    restart: always
-    ports:
-      - '3000:3000'
-    depends_on:
-      - mysql
-    environment:
-      - DATABASE_URL=mysql://todo_user:todo_password@mysql:3306/todo_db
-      - NODE_ENV=development
-    volumes:
-      - .:/app
-      - /app/node_modules
-    networks:
-      - todo_network
+  # api:
+  #   build:
+  #     context: .
+  #     dockerfile: Dockerfile
+  #   container_name: todo-api
+  #   restart: always
+  #   ports:
+  #     - '3000:3000'
+  #   depends_on:
+  #     - mysql
+  #   environment:
+  #     - DATABASE_URL=mysql://todo_user:todo_password@mysql:3306/todo_db
+  #     - NODE_ENV=development
+  #   volumes:
+  #     - .:/app
+  #     - /app/node_modules
+  #   networks:
+  #     - todo_network
 
 volumes:
   mysql_data:
 
-networks:
-  todo_network: 
+# networks:
+#   todo_network: 
