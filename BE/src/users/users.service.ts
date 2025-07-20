@@ -35,13 +35,25 @@ export class UsersService {
       where: { username },
     });
     
-    if (!user) {
-      throw new NotFoundException(`User with ID ${username} not found`);
-    }
+    // if (!user) {
+    //   throw new NotFoundException(`User with ID ${username} not found`);
+    // }
     
     return user;
   }
 
+  async findOneByEmail(email: string): Promise<User> {
+    const emailUser = await this.prisma.user.findUnique({
+      where: { email },
+    });
+    
+    // if (!user) {
+    //   throw new NotFoundException(`User with ID ${email} not found`);
+    // }
+    
+    return emailUser;
+  }
+  
   async update(id: number, updateUserDto: UpdateUserDto): Promise<User> {
     try {
       return await this.prisma.user.update({

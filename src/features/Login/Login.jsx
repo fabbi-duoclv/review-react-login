@@ -1,5 +1,6 @@
 import { useState } from 'react';
 import styles from './Login.module.css';
+import { useSignInMutation } from './Query/signInMutation';
 
 function Login() {
   const [email, setEmail] = useState('');
@@ -7,6 +8,7 @@ function Login() {
   const [rememberMe, setRememberMe] = useState(false);
   const [isLoading, setIsLoading] = useState(false);
   const [error, setError] = useState('');
+  const { mutationFn, onError, data, isLoading: isLoadingMutation } = useSignInMutation();
 
   const handleSubmit = (e) => {
     e.preventDefault();
@@ -26,12 +28,7 @@ function Login() {
     setError('');
     setIsLoading(true);
     
-    // Simulate API call
-    setTimeout(() => {
-      console.log('Login attempt:', { email, password, rememberMe });
-      setIsLoading(false);
-      // Here you would typically handle the authentication logic
-    }, 1500);
+    mutationFn({ email, password });
   };
 
   return (
@@ -120,11 +117,11 @@ function Login() {
         </form>
 
         <div className={styles.signupPrompt}>
-          Don't have an account? <a href="#" className={styles.signupLink}>Sign up</a>
+          Don't have an account? <a href="/signup" className={styles.signupLink}>Sign up</a>
         </div>
       </div>
     </div>
   );
 }
 
-export default Login; 
+export default Login;

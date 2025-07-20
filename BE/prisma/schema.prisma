@@ -13,6 +13,13 @@ datasource db {
   url      = env("DATABASE_URL")
 }
 
+enum Role {
+  EMPLOYEE
+  MANAGER
+  ADMIN
+  ROOT
+}
+
 model User {
   id        Int      @id @default(autoincrement())
   username  String   @unique
@@ -22,6 +29,7 @@ model User {
   createdAt DateTime @default(now())
   updatedAt DateTime @updatedAt
   todos     Todo[]
+  role      Role     @default(EMPLOYEE)
 }
 
 model Todo {

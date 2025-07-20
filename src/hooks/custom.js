@@ -1,11 +1,11 @@
 import { useState, useEffect } from 'react';
 
 
-export const useCustomToken = () => {
-    const [token, setTokens] = useState(null);
+export const useCustomToken = (initialValue = null) => {
+    const [token, setTokens] = useState(initialValue);
 
     useEffect(() => {
-        const token = localStorage.getItem('token');
+        const token = localStorage.getItem('access_token');
         if (token) {
             setTokens(token);
         }
@@ -13,7 +13,7 @@ export const useCustomToken = () => {
 
 
     const setToken = (token) => {
-        localStorage.setItem('token', token);
+        localStorage.setItem('access_token', token);
         setToken(token);
     }
 
@@ -21,15 +21,17 @@ export const useCustomToken = () => {
 }
 
 export const useAuth = () => {
-    const [token, setTokens] = useCustomToken();
+    const [token, setToken] = useState(null);
     
     let isAuthenticated = false;
 
     useEffect(() => {
-        // const token = localStorage.getItem('token');
-        // if (token) {
-        //     setTokens(token);
-        // }
+        const token = localStorage.getItem('access_token');
+        if (token) {
+
+            setToken(token);
+        }
+
     }, [token]);
 
 
@@ -38,5 +40,5 @@ export const useAuth = () => {
     //     setToken(token);
     // }
 
-    // return [token, setToken];
+    return [token, setToken];
 }
