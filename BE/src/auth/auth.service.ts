@@ -8,12 +8,15 @@ import * as bcrypt from 'bcryptjs';
 export class AuthService {
     constructor(private prisma: PrismaService, private usersService: UsersService, private jwtService: JwtService) {}
 
-    async signIn(username: string, pass: string): Promise<any> {
-      const user = await this.usersService.findOneByUsername(username);
-      if (user?.password !== await bcrypt.hash(pass, 10)) {
+    async signIn(email: string, pass: string): Promise<any> {
+      console.log('email', email)
+      const user = await this.usersService.findOneByEmail(email);
+      console.log('user?.password', user?.password);
+      const isPasswordValid = await bcrypt.compare(pass, user.password);
+      if (isPasswordValid) {
         throw new UnauthorizedException();
       }
-      const payload = { username: user.username, sub: user.id };
+      const payload = { username: user.username, id: user.id };
       return {
           access_token: await this.jwtService.signAsync(payload),
           refresh_token: await this.jwtService.signAsync(payload, { expiresIn: '7d' }), 
@@ -37,7 +40,7 @@ export class AuthService {
         email,
       });
 
-      const payload = { username, sub: newUser.id };
+      const payload = { username, id: newUser.id };
       return {
           access_token: await this.jwtService.signAsync(payload),
           refresh_token: await this.jwtService.signAsync(payload, { expiresIn: '7d' }), 
@@ -45,39 +48,54 @@ export class AuthService {
     }
 
     async checkToken(token: string): Promise<any> {
-      const decoded = this.jwtService.verify(token, { secret: process.env.JWT_SECRET });
-      const user = await this.usersService.findOne(decoded.sub);
-      if (!user) {
+      console.log('--- checkToken token ---',token);
+      try {
+        const decoded = this.jwtService.verify(token, { secret: process.env.JWT_SECRET });
+        console.log('decoded', decoded)
+        if(!decoded) {
+          return false;
+        }
+        const user = await this.usersService.findOne(decoded.id);
+        if (!user) {
+          return false;
+        }
+        if(decoded.exp < Math.floor(Date.now() / 1000)) {
+          return false;
+        }
+        const payload = { username: user.username, id: user.id };
+        return {
+          access_token: await this.jwtService.signAsync(payload),
+          user,
+        }
+      } catch (error) {
+        console.log('--- error ---',error);
         return false;
-      }
-      const payload = { username: user.username, sub: user.id, exp: decoded.exp };
-      if(decoded.exp < Math.floor(Date.now() / 1000)) {
-        return false;
-      }
-      return {
-        access_token: await this.jwtService.signAsync(payload),
-        user,
       }
     }
 
     async refreshToken(token: string): Promise<any> {
-      const decoded = this.jwtService.verify(token, { secret: process.env.JWT_SECRET });
-      const user = await this.usersService.findOne(decoded.sub);  
-      if (!user) {
-        return {
-          access_token: null,
-        };
-      }
-      const payload = { username: user.username, sub: user.id, exp: decoded.exp };
-      if(decoded.exp < Math.floor(Date.now() / 1000)) {
-        return {
-          access_token: null,
-        };
-      }
-      return {
-          access_token: await this.jwtService.signAsync(payload),
-          user,
+      try {
+        const decoded = this.jwtService.verify(token, { secret: process.env.JWT_SECRET });
+        const user = await this.usersService.findOne(decoded.id);
+        if (!user) {
+          return {
+            access_token: null,
+          };
         }
+        if(decoded.exp < Math.floor(Date.now() / 1000)) {
+          return {
+            access_token: null,
+          };
+        }
+        const payload = { username: user.username, id: user.id };
+        return {
+            access_token: await this.jwtService.signAsync(payload),
+            user,
+          }
+      } catch (error) {
+        console.log('--- error ---',error);
+        return false;
+      }
     }
 
 }

@@ -18,9 +18,11 @@ export function useSignInMutation() {
       return response.json();
     },
     onSuccess: (data) => {
-      const { access_token } = data;
-      localStorage.setItem("access_token", access_token);
-      navigate("/");
+      console.log('data', data);
+      
+      // const { access_token } = data;
+      // localStorage.setItem("access_token", access_token);
+      // navigate("/");
     },
   });
 

@@ -5,7 +5,6 @@ import { UsersService } from "src/users/users.service";
 export class AuthGuard implements CanActivate {
     constructor(private jwtService: JwtService, private usersService: UsersService) {}
     async canActivate(context: ExecutionContext): Promise<boolean> {
-        console.log('context', context)
         const request = context.switchToHttp().getRequest();
         const token = request.headers.authorization?.split(' ')[1];
         if (!token) {
@@ -31,7 +30,6 @@ export class AuthGuard implements CanActivate {
 export class AdminGuard implements CanActivate {
     constructor(private jwtService: JwtService, private usersService: UsersService) {}
     async canActivate(context: ExecutionContext): Promise<boolean> {
-        console.log('context', context)
         const request = context.switchToHttp().getRequest();
         const token = request.headers.authorization?.split(' ')[1];
         if (!token) {

@@ -21,9 +21,9 @@ function Todos() {
   // Kiểm tra xem người dùng đã đăng nhập chưa
   useEffect(() => {
     const token = localStorage.getItem('access_token');
-    if (!token) {
-      navigate('/login');
-    }
+    // if (!token) {
+    //   navigate('/login');
+    // }
   }, [navigate]);
 
   // Sử dụng useCallback để tối ưu performance
