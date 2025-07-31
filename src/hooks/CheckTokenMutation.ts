@@ -14,7 +14,7 @@ export function useCheckTokenMutation(){
             return response.json();
         },
         onSuccess: (data) => {
-            console.log('--- CheckTokenMutationFn ---',data);
+            // console.log('--- CheckTokenMutationFn ---',data);
         },
         onError: (error) => {
             console.log(error);

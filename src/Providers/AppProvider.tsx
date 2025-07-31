@@ -1,7 +1,7 @@
 import React from 'react';
-import { AuthContext } from './authContext.ts'
+import { AuthContext, User } from './authContext.ts'
 import { useAuth } from '../hooks/custom'
-import { useState } from 'react';
+import { useEffect, useState } from 'react';
 import { SnackbarOrigin } from '@mui/material';
 import { LoadingComponent } from '../components/loading.tsx';
 
@@ -11,9 +11,10 @@ export interface State extends SnackbarOrigin {
 
 export const AppProvider = ({ children }) => {
     const [message, setMessage] = useState('');
-    const [ isAuthenticated, setToken ] = useAuth();
-    const [ isLoading, setIsLoading ] = useState(false);
-    console.log('--- isAuthenticated ---',isAuthenticated);
+    const [ isAuthenticated, setToken, setRefreshToken, isLoading ] = useAuth();
+    const [ isLoadingAuth, setIsLoadingAuth ] = useState(true);
+    const [ user, setUser ] = useState<User | null>(null);
+
     const [state, setState] = useState<State>({
         open: false,
         vertical: 'top',
@@ -28,10 +29,16 @@ export const AppProvider = ({ children }) => {
       const handleClose = () => {
         setState({ ...state, open: false });
       };
+
+    useEffect(() => {
+      if (isLoading) return;
+        setIsLoadingAuth(false);
+    }, [isAuthenticated, isLoading]);
     
-    // if (true) {
-    //     return <LoadingComponent isLoading={true} />
-    // }
+    if (isLoading || isLoadingAuth) {
+        return <LoadingComponent isLoading={isLoading} />
+    }
+
     return (
         <AuthContext.Provider value={{
             message,
@@ -43,8 +50,10 @@ export const AppProvider = ({ children }) => {
             open,
             handleClick,
             handleClose,
-            isLoading,
-            setIsLoading,
+            isLoadingAuth,
+            setIsLoadingAuth,
+            user,
+            setUser
         }}>
             {children}
         </AuthContext.Provider>

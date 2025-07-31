@@ -1,7 +1,6 @@
-import { useState, useEffect, useContext } from 'react';
+import { useState, useEffect, useLayoutEffect } from 'react';
 import { useCheckTokenMutation } from './CheckTokenMutation';
 import { CheckRefreshTokenMutation } from './CheckRefreshTokenMutation';
-import { AuthContext } from '../Providers/authContext';
 
 export const useCustomToken = (initialValue = null) => {
     const [token, setTokens] = useState(initialValue);
@@ -25,53 +24,45 @@ export const useCustomToken = (initialValue = null) => {
 export const useAuth = () => {
     const [token, setToken] = useState(localStorage.getItem('access_token'));
     const [refreshToken, setRefreshToken] = useState(localStorage.getItem('refresh_token'));
-    const {mutate, data, onError, isLoading: isLoadingCheckToken} = useCheckTokenMutation(token);
-    const {mutate: mutateRefreshToken, data: dataRefreshToken, isLoading: isLoadingRefreshToken} = CheckRefreshTokenMutation(refreshToken);
+    const {mutate, data, onError} = useCheckTokenMutation(token);
+    const {mutate: mutateRefreshToken, data: dataRefreshToken} = CheckRefreshTokenMutation(refreshToken);
     const [isAuthenticated, setIsAuthenticated] = useState(false);
-    const {isLoading, setIsLoading} = useContext(AuthContext);
+    const [isLoading, setIsLoading] = useState(true);
 
-    console.log('--- useAuth: isLoading ---',isLoading);
-    // useEffect(() => {
-    //     setIsLoading(true);
-    // }, []);
+    useLayoutEffect(() => {
+        if (!token) {
+            setIsAuthenticated(false);
+            setIsLoading(false);
+           return
+        }
+    }, []);
 
     useEffect(() => {
+        if (isAuthenticated) return;
         const token = localStorage.getItem('access_token');
+        const refreshToken = localStorage.getItem('refresh_token');
         if (token) {
-            setToken(token);
             token && mutate(token);
-            setIsLoading(false);
-        } else {
-            if(refreshToken) {
-                mutateRefreshToken(refreshToken);
-            }
-            // setIsLoading(false);
+            return;
         }
-    }, [token]);
+        if(refreshToken) {
+            mutateRefreshToken(refreshToken);
+        }
+    }, []);
 
     useEffect(() => {
         console.log('--- data ---',data);
+        if (data === undefined && dataRefreshToken === undefined) return;
         if (data) {
+            localStorage.setItem('access_token', data.access_token);
             setIsAuthenticated(true);
-            setIsLoading(false);
-        } else {
-            // setIsLoading(false);
-            // localStorage.removeItem('access_token');
         }
-    }, [data]);
-
-    useEffect(() => {
-        console.log('--- dataRefreshToken ---',dataRefreshToken);
         if (dataRefreshToken) {
+            localStorage.setItem('access_token', dataRefreshToken.access_token);
             setIsAuthenticated(true);
-            setToken(dataRefreshToken.access_token);
-            // setIsLoading(false);
-        } else {
-            // setIsLoading(false);
-            // localStorage.removeItem('access_token');
-            // localStorage.removeItem('refresh_token');
         }
-    }, [dataRefreshToken]);
+        setIsLoading(false);
+    }, [data, dataRefreshToken]);
 
-    return [isAuthenticated, setToken];
+    return [isAuthenticated, setToken,setRefreshToken, isLoading];
 }

@@ -3,7 +3,7 @@ import { AuthContext } from '../Providers/authContext';
 
 export const LoadingComponent = ({isLoading}) => {
     // const { isLoading } = useContext(AuthContext);
-    console.log('--- LoadingComponent: isLoading ---',isLoading);
+    // console.log('--- LoadingComponent: isLoading ---',isLoading);
     return (
         <div className="loading-container">
             <div className="loading-overlay">

@@ -4,6 +4,16 @@ import { SnackbarOrigin } from "@mui/material";
 type VerticalPosition = 'top' | 'bottom';
 type HorizontalPosition = 'left' | 'center' | 'right';
 
+export type User = {
+    id: number | string,
+    username: string,
+    password: string,
+    email: string,
+    isActive: boolean | string,
+    createdAt: string | Date,
+    updatedAt: string | Date,
+    role: string | number
+}
 export const AuthContext = createContext({
     message: '',
     setMessage: (() => {}) as Dispatch<SetStateAction<string>>,
@@ -14,6 +24,8 @@ export const AuthContext = createContext({
     open: false,
     handleClick: (newState: SnackbarOrigin) => () => {},
     handleClose: () => {},
-    isLoading: false,
-    setIsLoading: (() => {}) as Dispatch<SetStateAction<boolean>>,
+    isLoadingAuth: false,
+    setIsLoadingAuth: (() => {}) as Dispatch<SetStateAction<boolean>>,
+    user: null as User | null,
+    setUser: (() => {}) as Dispatch<SetStateAction<User | null>>,
 });
